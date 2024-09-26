@@ -1,6 +1,18 @@
 spring:
   application:
     name: gatewayService
+  main:
+    web-application-type: reactive
+
+  cloud:
+    gateway:
+      routes:
+        - id: userService
+          uri: lb://userService
+          predicates:
+            - Path=/user/**
+#          filters:
+#            - StripPrefix=1
 server:
   port: 1112
 
@@ -36,15 +48,10 @@ management:
   info:
     env:
       enabled: true
+
 #zuul:
 #  routes:
 #    userService:
 #      path: /user/**
-#      url: http://localhost:1113/api/user
-
-zuul:
-  routes:
-    userService:
-      path: /user/**
-      service-id: userService
+#      service-id: userService
 
