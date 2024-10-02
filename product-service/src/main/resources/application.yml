@@ -1,11 +1,11 @@
 spring:
   application:
-    name: userService
+    name: productService
   cloud:
     inetutils:
       preferred-networks: 127.0.0.1
 server:
-  port: 1113
+  port: 1114
 
 eureka:
   client:
@@ -25,8 +25,8 @@ logging:
 
 info:
   app:
-    name: User Application
-    description: This is a sample application about User.
+    name: Product Application
+    description: This is a sample application about Product.
     version: 1.0.0
 
 management:
