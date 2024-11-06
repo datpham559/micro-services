@@ -1,9 +1,11 @@
 spring:
   application:
-    name: userService
+    name: authService
   cloud:
     inetutils:
       preferred-networks: 127.0.0.1
+  main:
+    allow-bean-definition-overriding: true
   datasource:
 #    type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://database-2.cn2a20wwccoe.ap-southeast-2.rds.amazonaws.com:3306/ptproject
@@ -18,7 +20,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
 server:
-  port: 1113
+  port: 1111
 
 eureka:
   client:
@@ -38,8 +40,8 @@ logging:
 
 info:
   app:
-    name: User Application
-    description: This is a sample application about User.
+    name: Auth Application
+    description: This is a sample application about Auth.
     version: 1.0.0
 
 management:
