@@ -1,6 +1,7 @@
 package datpt.spring.entity;
 
 import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -8,22 +9,25 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users",
+        uniqueConstraints = @UniqueConstraint(name = "username_unique", columnNames = "username")
+)
 @EntityListeners(AuditingEntityListener.class)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "username")
+    @Column(name = "username", length = 25)
+    @NotNull
     private String username;
-    @Column(name = "email")
+    @Column(name = "email", length = 25)
     private String email;
     @Column(name = "password")
     private String password;
-    @Column(name = "phonenumber")
-    private String phonenumber;
+    @Column(name = "phonenumber", length = 25)
+    private String phoneNumber;
     @Column(name = "dateofbirth")
-    private String dateOfBirth;
+    private LocalDateTime dateOfBirth;
     @Column(name = "createddate")
     @CreatedDate
     private LocalDateTime createdDate;
@@ -63,19 +67,19 @@ public class User {
         this.password = password;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public String getDateOfBirth() {
+    public LocalDateTime getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(LocalDateTime dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

@@ -1,22 +1,29 @@
 package datpt.spring.controller;
 
+import datpt.spring.entity.User;
+import datpt.spring.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/auth")
 public class UserController {
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     @GetMapping("/hello")
     public ResponseEntity<String> getHelloWorld(){
         return new ResponseEntity<>("hihi", HttpStatus.OK);
     }
 
-    @PostMapping("/customer")
-    public ResponseEntity<String> createUser(){
-        return new ResponseEntity<>("hihi", HttpStatus.OK);
+    @PostMapping("/create-user")
+    public ResponseEntity<User> createUser(@RequestBody User user){
+        User result = userService.createUser(user);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 }

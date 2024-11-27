@@ -8,9 +8,9 @@ spring:
     allow-bean-definition-overriding: true
   datasource:
 #    type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://database-2.cn2a20wwccoe.ap-southeast-2.rds.amazonaws.com:3306/ptproject
+    url: jdbc:mysql://127.0.0.1:3306/userservice
     username: root
-    password: 123456aA
+    password:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
