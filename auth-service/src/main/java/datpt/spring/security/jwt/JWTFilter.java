@@ -13,11 +13,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 public class JWTFilter extends OncePerRequestFilter {
     private final UserDetailService userDetailService;
     private final TokenProvider tokenProvider;
+
+    private static final List<String> apiIgnore = List.of("/auth/add-token-blacklist");
 
     public JWTFilter(UserDetailService userDetailService, TokenProvider tokenProvider) {
         this.userDetailService = userDetailService;
@@ -29,6 +32,12 @@ public class JWTFilter extends OncePerRequestFilter {
         final String authorizationHeader = request.getHeader("Authorization");
         String username = null;
         String jwt = null;
+
+        String path = request.getServletPath();
+        if (apiIgnore.contains(path)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             jwt = authorizationHeader.substring(7);

@@ -1,9 +1,11 @@
 package datpt.spring.security.jwt;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,5 +47,17 @@ public class TokenProvider {
     public boolean validateToken(String token, String username) {
         final String extractedUsername = extractUsername(token);
         return (extractedUsername.equals(username) && !isTokenExpired(token));
+    }
+
+    public long getTokenExpirationInSeconds(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(SECRET_KEY)
+                .parseClaimsJws(token)
+                .getBody();
+
+        Date expiration = claims.getExpiration();
+        long now = System.currentTimeMillis();
+
+        return (expiration.getTime() - now) / 1000;
     }
 }

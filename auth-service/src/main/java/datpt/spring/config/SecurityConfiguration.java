@@ -57,10 +57,12 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/actuator/**").permitAll() // với endpoint /hello thì sẽ được cho qua
+                        .requestMatchers("/auth/add-token-blacklist").permitAll()
+                        .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/auth/create-user").permitAll()
                         .requestMatchers("/auth/login").permitAll()
-                        .requestMatchers("/auth/hello").authenticated() // với endpoint /customer/** sẽ yêu cầu authenticate
+                        .requestMatchers("/auth/hello").authenticated()
+                        .anyRequest().authenticated()
                 )
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())
