@@ -34,6 +34,8 @@ public class User {
     @Column(name = "modifieddate")
     @LastModifiedDate
     private LocalDateTime modifiedDate;
+    @Column(name = "refreshtoken")
+    private String refreshToken;
 
     public int getId() {
         return id;
@@ -97,5 +99,13 @@ public class User {
 
     public void setModifiedDate(LocalDateTime modifiedDate) {
         this.modifiedDate = modifiedDate;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }

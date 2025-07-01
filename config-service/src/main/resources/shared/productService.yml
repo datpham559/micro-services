@@ -1,0 +1,37 @@
+spring:
+  cloud:
+    inetutils:
+      preferred-networks: 127.0.0.1
+server:
+  port: 1114
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+
+ribbon:
+  eureka:
+    enabled: true
+
+logging:
+  level:
+    com.netflix.eureka: OFF
+    com.netflix.discovery: OFF
+
+info:
+  app:
+    name: Product Application
+    description: This is a sample application about Product.
+    version: 1.0.0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true

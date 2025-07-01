@@ -1,18 +1,5 @@
 spring:
   application:
     name: eurekaService
-  cloud:
-    inetutils:
-      preferred-networks: 127.0.0.1
-server:
-  port: 8761
-
-eureka:
-  client:
-    register-with-eureka: false
-    fetch-registry: false
-
-logging:
-  level:
-    com.netflix.eureka: OFF
-    com.netflix.discovery: OFF
+  config:
+    import: configserver:http://localhost:9999

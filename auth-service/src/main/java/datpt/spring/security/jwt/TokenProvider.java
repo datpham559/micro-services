@@ -1,10 +1,13 @@
 package datpt.spring.security.jwt;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,7 +17,7 @@ import java.util.Map;
 public class TokenProvider {
     private final String SECRET_KEY = "secret";
     private final long EXPIRATION_TIME = 1000 * 60 * 15; // 15 phút
-    private final long REFRESH_EXPIRATION_TIME = 1000 * 60 * 60 * 24; // 1 ngày
+    private final long REFRESH_EXPIRATION_TIME = 1000 * 60 * 60 * 24 * 14; // 14 ngày
 
     public String generateAccessToken(String username) {
         Map<String, Object> claims = new HashMap<>();
@@ -40,13 +43,23 @@ public class TokenProvider {
         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public boolean isTokenExpired(String token) {
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getExpiration().before(new Date());
+    public boolean isTokenExpired(String token, HttpServletResponse response) throws IOException {
+        boolean expired = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getExpiration().before(new Date());
+        if (expired) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write(
+                    new ObjectMapper().writeValueAsString(Map.of(
+                            "code", "TOKEN_EXPIRED",
+                            "message", "Access token expired"
+                    ))
+            );
+        }
+        return expired;
     }
 
-    public boolean validateToken(String token, String username) {
+    public boolean validateToken(String token, String username, HttpServletResponse response) throws IOException {
         final String extractedUsername = extractUsername(token);
-        return (extractedUsername.equals(username) && !isTokenExpired(token));
+        return (extractedUsername.equals(username) && !isTokenExpired(token, response));
     }
 
     public long getTokenExpirationInSeconds(String token) {

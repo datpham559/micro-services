@@ -22,4 +22,11 @@ public class UserServiceImpl implements UserService {
         User savedUser = userRepository.save(user);
         return savedUser;
     }
+
+    @Override
+    public void saveRefreshToken(String refreshToken, String username) {
+        User user = userRepository.findByUsername(username).get();
+        user.setRefreshToken(refreshToken);
+        userRepository.save(user);
+    }
 }

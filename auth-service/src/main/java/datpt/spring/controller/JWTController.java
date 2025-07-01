@@ -4,6 +4,7 @@ import datpt.spring.dto.AuthRequest;
 import datpt.spring.dto.AuthResponse;
 import datpt.spring.security.UserDetailService;
 import datpt.spring.security.jwt.TokenProvider;
+import datpt.spring.service.UserService;
 import datpt.spring.service.utils.UtilsService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -21,11 +22,13 @@ public class JWTController {
 
     private final AuthenticationManager authenticationManager;
     private final UtilsService utilsService;
+    private final UserService userService;
 
-    public JWTController(TokenProvider tokenProvider, AuthenticationManager authenticationManager, UtilsService utilsService) {
+    public JWTController(TokenProvider tokenProvider, AuthenticationManager authenticationManager, UtilsService utilsService, UserService userService) {
         this.tokenProvider = tokenProvider;
         this.authenticationManager = authenticationManager;
         this.utilsService = utilsService;
+        this.userService = userService;
     }
 
 
@@ -36,7 +39,7 @@ public class JWTController {
 
         final String accessToken = tokenProvider.generateAccessToken(authRequest.getUsername());
         final String refreshToken = tokenProvider.generateRefreshToken(authRequest.getUsername());
-
+        userService.saveRefreshToken(refreshToken, authRequest.getUsername());
         return ResponseEntity.ok(new AuthResponse(accessToken, refreshToken));
     }
 

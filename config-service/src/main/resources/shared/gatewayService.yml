@@ -1,0 +1,74 @@
+spring:
+  main:
+    web-application-type: reactive # or delele start-web
+    allow-bean-definition-overriding: true
+  cloud:
+    inetutils:
+      preferred-networks: 127.0.0.1
+    gateway:
+      routes:
+        - id: userService
+          uri: lb://userService
+          predicates:
+            - Path=/user/**
+        - id: authService
+          uri: lb://authService
+          predicates:
+            - Path=/auth/**
+  #          filters:
+  #            - TokenBlacklistFilter
+
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+#          filters:
+#            - StripPrefix=1
+server:
+  port: 1112
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+
+ribbon:
+  eureka:
+    enabled: true
+
+logging:
+  level:
+    com.netflix.eureka: OFF
+    com.netflix.discovery: OFF
+    org.springframework.cloud.netflix.zuul: DEBUG
+    root: DEBUG
+    #    org:
+    #      springframework:
+    #        boot:
+    #          autoconfigure: ERROR
+    org.springframework.security: DEBUG
+
+
+info:
+  app:
+    name: GateWay Application
+    description: This is a sample application about GateWay.
+    version: 1.0.0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true
+
+#zuul:
+#  routes:
+#    userService:
+#      path: /user/**
+#      service-id: userService
+
