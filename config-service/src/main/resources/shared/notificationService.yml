@@ -1,0 +1,56 @@
+spring:
+  cloud:
+    inetutils:
+      preferred-networks: 127.0.0.1
+  thymeleaf:
+    check-template-location: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    #Create your app password with other (custom name)
+    #https://myaccount.google.com/u/1/apppasswords
+    username: datpham559@gmail.com
+    password: ioei htmp ptyb hwkv
+    protocol: smtp
+    default-encoding: UTF-8
+    test-connection: false
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+server:
+  port: 1116
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    registerWithEureka: true
+    fetchRegistry: true
+
+ribbon:
+  eureka:
+    enabled: true
+
+logging:
+  level:
+    com.netflix.eureka: OFF
+    com.netflix.discovery: OFF
+    de.codecentric.boot.admin.server.config: DEBUG
+
+info:
+  app:
+    name: Notification Application
+    description: This is a sample application about Notification.
+    version: 1.0.0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true

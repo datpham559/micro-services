@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: monitorService
+  config:
+    import: configserver:http://localhost:9999
