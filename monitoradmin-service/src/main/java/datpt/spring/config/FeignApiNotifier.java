@@ -26,18 +26,18 @@ public class FeignApiNotifier extends AbstractEventNotifier {
 
     @Override
     protected Mono<Void> doNotify(InstanceEvent event, Instance instance) {
-        if (event instanceof InstanceStatusChangedEvent statusEvent) {
-            GeneralMail generalMail = getGeneralMail(instance, statusEvent);
-            if (generalMail != null) {
-                return Mono.fromRunnable(() -> {
-                    try {
-                        mailService.sendGeneralMail(generalMail);
-                    } catch (Exception e) {
-                        logger.error("Error notifying: {}", e.getMessage());
-                    }
-                }).subscribeOn(Schedulers.boundedElastic()).then();
-            }
-        }
+//        if (event instanceof InstanceStatusChangedEvent statusEvent) {
+//            GeneralMail generalMail = getGeneralMail(instance, statusEvent);
+//            if (generalMail != null) {
+//                return Mono.fromRunnable(() -> {
+//                    try {
+//                        mailService.sendGeneralMail(generalMail);
+//                    } catch (Exception e) {
+//                        logger.error("Error notifying: {}", e.getMessage());
+//                    }
+//                }).subscribeOn(Schedulers.boundedElastic()).then();
+//            }
+//        }
         return Mono.empty();
     }
 
@@ -50,7 +50,7 @@ public class FeignApiNotifier extends AbstractEventNotifier {
                     "nhoccodon1711@gmail.com",
                     "Nguyen Van A",
                     "Thông báo hệ thống",
-                    "Dịch vụ" + service + "hiện đang không phản hồi. Vui lòng kiểm tra."
+                    "Dịch vụ " + service + " hiện đang không phản hồi. Vui lòng kiểm tra."
             );
             return generalMail;
         }
