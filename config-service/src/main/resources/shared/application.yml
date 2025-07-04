@@ -1,3 +1,10 @@
 #springdoc:
 #  swagger-ui:
 #    path: /swagger-ui.html
+
+logging:
+  level:
+    root: info
+    com.netflix.eureka: OFF
+    com.netflix.discovery: OFF
+    org.springframework.security: DEBUG

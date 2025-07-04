@@ -1,7 +1,7 @@
 package datpt.spring.client.fallback;
 
 import datpt.spring.client.MailService;
-import datpt.spring.service.GeneralMail;
+import datpt.spring.service.dto.GeneralMail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.openfeign.FallbackFactory;

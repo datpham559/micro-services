@@ -1,7 +1,7 @@
 package datpt.spring.client;
 
 import datpt.spring.client.fallback.MailFallBackFactory;
-import datpt.spring.service.GeneralMail;
+import datpt.spring.service.dto.GeneralMail;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -38,19 +38,6 @@ ribbon:
   eureka:
     enabled: true
 
-logging:
-  level:
-    com.netflix.eureka: OFF
-    com.netflix.discovery: OFF
-    org.springframework.cloud.netflix.zuul: DEBUG
-    root: DEBUG
-    #    org:
-    #      springframework:
-    #        boot:
-    #          autoconfigure: ERROR
-    org.springframework.security: DEBUG
-
-
 info:
   app:
     name: GateWay Application

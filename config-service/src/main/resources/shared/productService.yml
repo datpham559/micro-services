@@ -16,11 +16,6 @@ ribbon:
   eureka:
     enabled: true
 
-logging:
-  level:
-    com.netflix.eureka: OFF
-    com.netflix.discovery: OFF
-
 info:
   app:
     name: Product Application

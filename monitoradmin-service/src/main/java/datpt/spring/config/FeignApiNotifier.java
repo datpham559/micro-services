@@ -1,7 +1,7 @@
 package datpt.spring.config;
 
 import datpt.spring.client.MailService;
-import datpt.spring.service.GeneralMail;
+import datpt.spring.service.dto.GeneralMail;
 import de.codecentric.boot.admin.server.domain.entities.Instance;
 import de.codecentric.boot.admin.server.domain.entities.InstanceRepository;
 import de.codecentric.boot.admin.server.domain.events.InstanceEvent;
@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 
 @Component
 public class FeignApiNotifier extends AbstractEventNotifier {

@@ -1,4 +1,4 @@
-package datpt.spring.service;
+package datpt.spring.service.dto;
 
 public class GeneralMail {
     private String from;

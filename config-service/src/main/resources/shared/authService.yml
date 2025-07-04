@@ -35,12 +35,6 @@ ribbon:
   eureka:
     enabled: true
 
-logging:
-  level:
-    com.netflix.eureka: OFF
-    com.netflix.discovery: OFF
-    org.springframework.security: DEBUG
-
 info:
   app:
     name: Auth Application

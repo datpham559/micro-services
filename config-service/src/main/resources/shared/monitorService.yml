@@ -18,12 +18,6 @@ ribbon:
   eureka:
     enabled: true
 
-logging:
-  level:
-    com.netflix.eureka: OFF
-    com.netflix.discovery: OFF
-    de.codecentric.boot.admin.server.config: DEBUG
-
 info:
   app:
     name: Monitor Application
