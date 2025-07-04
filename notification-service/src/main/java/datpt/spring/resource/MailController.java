@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/notification")
@@ -17,7 +18,7 @@ public class MailController {
     }
 
     @PostMapping(value = "/mail/send-general-mail")
-    public void sendGeneralMail(@RequestBody GenerelMail generelMail) {
-        mailService.sendGeneralMail(generelMail);
+    public Mono<Void> sendGeneralMail(@RequestBody GenerelMail generelMail) {
+        return Mono.fromRunnable(() -> mailService.sendGeneralMail(generelMail));
     }
 }

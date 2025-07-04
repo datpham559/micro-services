@@ -1,11 +1,22 @@
 package datpt.spring.service;
 
-public class GenerelMail {
+public class GeneralMail {
     private String from;
     private String to;
     private String toName;
     private String subject;
     private String content;
+
+    public GeneralMail() {
+    }
+
+    public GeneralMail(String from, String to, String toName, String subject, String content) {
+        this.from = from;
+        this.to = to;
+        this.toName = toName;
+        this.subject = subject;
+        this.content = content;
+    }
 
     public String getFrom() {
         return from;
@@ -45,6 +56,17 @@ public class GenerelMail {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "GeneralMail{" +
+                "from='" + from + '\'' +
+                ", to='" + to + '\'' +
+                ", toName='" + toName + '\'' +
+                ", subject='" + subject + '\'' +
+                ", content='" + content + '\'' +
+                '}';
     }
 }
 

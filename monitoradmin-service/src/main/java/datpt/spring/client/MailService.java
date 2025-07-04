@@ -1,14 +1,16 @@
 package datpt.spring.client;
 
-import datpt.spring.service.GenerelMail;
+import datpt.spring.client.fallback.MailFallBackFactory;
+import datpt.spring.service.GeneralMail;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import reactor.core.publisher.Mono;
 
-@FeignClient(name = "notificationService", fallback = MailService.class)
+@FeignClient(name = "notificationService", fallback = MailFallBackFactory.class)
 public interface MailService {
 
-    @PostMapping(value = "/mail/send-general-mail")
-    void sendGeneralMail(@RequestBody GenerelMail generelMail);
+    @PostMapping(value = "notification/mail/send-general-mail")
+    Mono<Void> sendGeneralMail(@RequestBody GeneralMail generalMail);
 
 }
