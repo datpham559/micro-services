@@ -8,3 +8,19 @@ logging:
     com.netflix.eureka: OFF
     com.netflix.discovery: OFF
     org.springframework.security: DEBUG
+
+spring:
+  cloud:
+    openfeign:
+      micrometer:
+        enabled: true
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0   # 100% ghi trace
+    propagation:
+      type: w3c          # chuẩn trace info truyền qua HTTP headers
+  otlp:
+    tracing:
+      endpoint: http://localhost:9411/api/v2/spans

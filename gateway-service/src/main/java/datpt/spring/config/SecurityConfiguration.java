@@ -15,9 +15,9 @@ public class SecurityConfiguration {
         return http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchange -> exchange
+                        .pathMatchers("/actuator/**").permitAll()
                         .pathMatchers("/auth/**").permitAll()
                         .pathMatchers("/user/**").permitAll()
-                        .pathMatchers("/actuator/**").permitAll()
                         .anyExchange().authenticated()
                 )
                 .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
